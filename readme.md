@@ -6,7 +6,7 @@
 
   - You can also open `Layout Validation` view which is presented at the column menu on the right edge.
 
-- Switch activity:
+- Switch to another activity:
 
 ```java
 Intent intent = new Intent(this, TargetActivity.class);
