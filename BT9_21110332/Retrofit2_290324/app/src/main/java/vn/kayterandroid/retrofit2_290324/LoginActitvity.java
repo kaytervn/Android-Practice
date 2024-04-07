@@ -80,9 +80,10 @@ public class LoginActitvity extends AppCompatActivity {
                             );
                             SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
                             finish();
-                            Intent intent = new Intent(LoginActitvity.this, ProfileActivity.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(LoginActitvity.this, ProfileActivity.class);
+//                            startActivity(intent);
                         } catch (IOException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d("Exception Failure", e.getMessage());
                         }
                     } else {
