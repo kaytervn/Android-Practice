@@ -28,23 +28,13 @@
         android:layout_marginTop="50dp"/>
 
     <Button
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Đăng nhập"
+        android:text="Bắt đầu"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="500dp"
         android:width="250dp"
         android:height="60dp"/>
-
-    <TextView
-        android:id="@+id/textRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đăng ký tài khoản"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="700dp"/>
 </RelativeLayout>

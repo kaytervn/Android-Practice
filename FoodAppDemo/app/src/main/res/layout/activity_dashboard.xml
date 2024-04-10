@@ -10,6 +10,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="243dp"
+        android:layout_marginTop="-30dp"
         android:src="@drawable/top_background" />
 
     <TextView
@@ -44,9 +45,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="250dp" />
+        android:layout_marginTop="220dp" />
 
 
 </RelativeLayout>

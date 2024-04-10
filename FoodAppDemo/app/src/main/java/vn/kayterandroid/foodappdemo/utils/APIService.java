@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -17,6 +18,9 @@ import vn.kayterandroid.foodappdemo.model.User;
 public interface APIService {
     @POST("users/login")
     Call<ResponseBody> login(@Body User user);
+
+    @GET("users/{id}")
+    Call<ResponseBody> getUser(@Path("id") String userId);
 
     @POST("users/")
     Call<ResponseBody> register(@Body User user);

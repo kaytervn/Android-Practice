@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 
 public class SessionManager {
     private static final String PREF_NAME = "LoginPreference";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_ID = "id";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private static SessionManager instance;
@@ -23,23 +22,17 @@ public class SessionManager {
         return instance;
     }
 
-    public void saveLoginDetails(String email, String password) {
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_PASSWORD, password);
+    public void saveLoginUser(String id) {
+        editor.putString(KEY_ID, id);
         editor.apply();
     }
 
-    public String getEmail() {
-        return sharedPreferences.getString(KEY_EMAIL, "");
+    public String getId() {
+        return sharedPreferences.getString(KEY_ID, "");
     }
 
-    public String getPassword() {
-        return sharedPreferences.getString(KEY_PASSWORD, "");
-    }
-
-    public void clearLoginDetails() {
-        editor.remove(KEY_EMAIL);
-        editor.remove(KEY_PASSWORD);
+    public void clearLoginUser() {
+        editor.remove(KEY_ID);
         editor.apply();
     }
 }

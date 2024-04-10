@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonLogin;
+    Button buttonStart;
     TextView textRegister;
 
     @Override
@@ -17,25 +17,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mapping();
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
-
-        textRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     protected void mapping() {
-        buttonLogin = findViewById(R.id.buttonLogin);
-        textRegister = findViewById(R.id.textRegister);
+        buttonStart = findViewById(R.id.buttonStart);
     }
 }

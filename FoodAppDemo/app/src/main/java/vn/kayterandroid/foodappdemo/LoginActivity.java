@@ -40,6 +40,13 @@ public class LoginActivity extends AppCompatActivity {
 
         mapping();
 
+        String id = SessionManager.getInstance(getApplicationContext()).getId();
+
+        if (id != "") {
+            Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+            startActivity(intent);
+        }
+
         textRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,11 +69,11 @@ public class LoginActivity extends AppCompatActivity {
                                 String json = response.body().string();
                                 JsonObject userObject = new Gson().fromJson(json, JsonObject.class)
                                         .getAsJsonObject("user");
-                                SessionManager.getInstance(getApplicationContext()).saveLoginDetails(
-                                        userObject.get("email").getAsString(),
-                                        userObject.get("password").getAsString()
+                                SessionManager.getInstance(getApplicationContext()).saveLoginUser(
+                                        userObject.get("_id").getAsString()
                                 );
-                                Log.d("Login", SessionManager.getInstance(getApplicationContext()).getEmail());
+                                Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                                startActivity(intent);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
