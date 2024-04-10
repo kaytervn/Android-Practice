@@ -7,14 +7,14 @@ public class RetrofitClient {
     private static Retrofit retrofit;
     private static String BASE_URL = "https://food-app-api-demo.onrender.com/api/";
 
-    public static Retrofit getRetrofit() {
+    public static APIService getAPIService() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-            return retrofit;
         }
-        return null;
+        return retrofit.create(APIService.class);
     }
 }
+
