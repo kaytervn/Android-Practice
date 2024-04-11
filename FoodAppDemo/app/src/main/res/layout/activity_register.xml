@@ -61,7 +61,7 @@
         android:textSize="30dp"/>
 
     <Button
-        android:id="@+id/buttonLogin"
+        android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tiếp tục"
@@ -72,7 +72,7 @@
         android:height="60dp"/>
 
     <TextView
-        android:id="@+id/textRegister"
+        android:id="@+id/textLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Đã có tài khoản?"

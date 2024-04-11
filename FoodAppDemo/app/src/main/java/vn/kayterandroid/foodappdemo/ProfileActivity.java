@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     APIService apiService;
     ImageView imagePicture;
     TextView textName, textEmail, textPassword;
+    Button buttonLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +51,11 @@ public class ProfileActivity extends AppCompatActivity {
                         textName.setText(userObject.get("name").getAsString());
                         textEmail.setText(userObject.get("email").getAsString());
                         textPassword.setText(userObject.get("password").getAsString());
-                        Glide.with(getApplicationContext())
-                                .load(userObject.get("image").getAsString())
-                                .into(imagePicture);
-
+                        if (userObject.get("image").getAsString().length() > 0) {
+                            Glide.with(getApplicationContext())
+                                    .load(userObject.get("image").getAsString())
+                                    .into(imagePicture);
+                        }
                         imagePicture.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -73,6 +76,15 @@ public class ProfileActivity extends AppCompatActivity {
                 Log.d("Failed to call API", t.getMessage());
             }
         });
+
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SessionManager.getInstance(getApplicationContext()).clearLoginUser();
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     void mapping() {
@@ -80,5 +92,6 @@ public class ProfileActivity extends AppCompatActivity {
         textName = findViewById(R.id.textName);
         textEmail = findViewById(R.id.textEmail);
         textPassword = findViewById(R.id.textPassword);
+        buttonLogout = findViewById(R.id.buttonLogout);
     }
 }

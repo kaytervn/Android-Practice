@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         imagePicture = findViewById(R.id.imagePicture);
         try {
             apiService = RetrofitClient.getRetrofit().create(APIService.class);
-            Call<ResponseBody> call = apiService.login("trung3", "123");
+            Call<ResponseBody> call = apiService.login("trung2", "123");
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

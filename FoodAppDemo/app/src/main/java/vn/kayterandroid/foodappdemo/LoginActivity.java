@@ -78,7 +78,13 @@ public class LoginActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                            String errorMessage = "";
+                            try {
+                                JsonObject errorJson = new Gson().fromJson(response.errorBody().string(), JsonObject.class);
+                                errorMessage = errorJson.get("error").getAsString();                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     }
 

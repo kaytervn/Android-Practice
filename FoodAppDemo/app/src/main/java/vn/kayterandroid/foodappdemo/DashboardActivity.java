@@ -40,8 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
         if (id == "") {
             Intent intent = new Intent(DashboardActivity.this, LoginActivity.class);
             startActivity(intent);
-        }
-        else{
+        } else {
             apiService = RetrofitClient.getAPIService();
             Call<ResponseBody> call = apiService.getUser(id);
             call.enqueue(new Callback<ResponseBody>() {
@@ -53,10 +52,11 @@ public class DashboardActivity extends AppCompatActivity {
                             JsonObject userObject = new Gson().fromJson(json, JsonObject.class)
                                     .getAsJsonObject("user");
                             textName.setText(userObject.get("name").getAsString());
-                            Glide.with(getApplicationContext())
-                                    .load(userObject.get("image").getAsString())
-                                    .into(imagePicture);
-
+                            if (userObject.get("image").getAsString().length() > 0) {
+                                Glide.with(getApplicationContext())
+                                        .load(userObject.get("image").getAsString())
+                                        .into(imagePicture);
+                            }
                             imagePicture.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
