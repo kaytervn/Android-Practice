@@ -25,6 +25,7 @@ public interface APIService {
     @POST("users/")
     Call<ResponseBody> register(@Body User user);
 
+    @Multipart
     @PUT("users/{id}")
     Call<ResponseBody> updateUser(@Path("id") String userId, @Part MultipartBody.Part image);
 }
