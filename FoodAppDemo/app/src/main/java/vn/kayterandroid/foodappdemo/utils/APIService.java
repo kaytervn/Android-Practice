@@ -28,4 +28,7 @@ public interface APIService {
     @Multipart
     @PUT("users/{id}")
     Call<ResponseBody> updateUser(@Path("id") String userId, @Part MultipartBody.Part image);
+
+    @GET("foods/")
+    Call<ResponseBody> getFoods();
 }
