@@ -41,3 +41,9 @@ android {
     }
 }
 ```
+
+<h2>Resetting Vector Assets</h2>
+
+- cd to `C:\Users\<user-name>\AppData\Local\Android\Sdk\icons\material`.
+
+- Delete file `icons_metadata.txt`.
