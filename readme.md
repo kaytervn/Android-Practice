@@ -42,8 +42,26 @@ android {
 }
 ```
 
+- Don't use `switch/case`, use `if/else` instead.
+
 <h2>Resetting Vector Assets</h2>
 
 - cd to `C:\Users\<user-name>\AppData\Local\Android\Sdk\icons\material`.
 
 - Delete file `icons_metadata.txt`.
+
+<h2>All techniques learned</h2>
+
+- Databinding/Mapping
+- RecyclerView
+- Call API Volley/Retrofit2
+- Hide Android title Bar
+- Toast, Popup Menu, Alert Dialog
+- Intent, putExtra()
+- AutoCompleteTextView, ProgressBar, SeekBar
+- Layout: Relative, Grid, Table, Contraint, Frame, Linear
+- Shared Preferences, Internal/External Storage
+- Thread, Handler, AsyncTask
+- Fragment, Tablayout, ViewPager2
+- Upload File/Image
+- Indicator and Search in RecyclerView, Slide Images
