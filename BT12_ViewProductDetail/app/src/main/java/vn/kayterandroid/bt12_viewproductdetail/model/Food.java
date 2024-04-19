@@ -15,6 +15,12 @@ public class Food {
     @SerializedName("description")
     String description;
 
+    public Food(String image, String title, String price) {
+        this.image = image;
+        this.title = title;
+        this.price = price;
+    }
+
     public Food(String image, String title, String price, String description) {
         this.image = image;
         this.title = title;

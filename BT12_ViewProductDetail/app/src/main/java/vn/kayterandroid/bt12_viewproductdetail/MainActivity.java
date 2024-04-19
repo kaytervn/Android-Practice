@@ -1,6 +1,7 @@
 package vn.kayterandroid.bt12_viewproductdetail;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,21 +22,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import vn.kayterandroid.bt12_viewproductdetail.model.Food;
+import vn.kayterandroid.bt12_viewproductdetail.recyclerview.MyAdapter;
+import vn.kayterandroid.bt12_viewproductdetail.recyclerview.RecyclerViewClickListener;
 import vn.kayterandroid.bt12_viewproductdetail.utils.APIService;
 import vn.kayterandroid.bt12_viewproductdetail.utils.RetrofitClient;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecyclerViewClickListener {
     APIService apiService;
     List<Food> listFoods = new ArrayList<>();
     MyAdapter foodsAdapter;
     RecyclerView recyclerViewFoods;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerViewFoods = findViewById(R.id.recyclerViewFoods);
         getFoods();
-
     }
 
     void getFoods() {
@@ -54,18 +57,18 @@ public class MainActivity extends AppCompatActivity {
                             listFoods.add(new Food(
                                     foodObject.getString("image"),
                                     foodObject.getString("title"),
-                                    foodObject.getString("price"),
-                                    foodObject.getString("description")
+                                    foodObject.getString("price")
                             ));
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
-                    foodsAdapter = new MyAdapter(MainActivity.this, listFoods);
+                    foodsAdapter = new MyAdapter(MainActivity.this, listFoods,MainActivity.this );
                     recyclerViewFoods.setHasFixedSize(true);
-                    recyclerViewFoods.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    recyclerViewFoods.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
                     recyclerViewFoods.setAdapter(foodsAdapter);
                     foodsAdapter.notifyDataSetChanged();
+                    Log.d("Test", "" + listFoods.size());
                 } else {
                     Toast.makeText(getApplicationContext(), "Response Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -76,5 +79,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Failed to call API", t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onItemClick(Food food) {
+        Toast.makeText(this, "Item clicked: " + food.getTitle(), Toast.LENGTH_SHORT).show();
     }
 }
