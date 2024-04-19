@@ -5,12 +5,14 @@
     android:layout_height="wrap_content"
     android:padding="5dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="200dp"
-        android:layout_height="125dp"
+        android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:src="@drawable/top_background" />
+        android:layout_marginTop="55dp"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/square"
+        android:src="@drawable/sqbg" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imagePicture"
@@ -34,5 +36,10 @@
         android:text="Name"
         android:textColor="@color/white"
         android:textSize="25dp"
+        android:shadowColor="#000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="10"
+        android:padding="3dp"
         android:textStyle="bold" />
 </RelativeLayout>

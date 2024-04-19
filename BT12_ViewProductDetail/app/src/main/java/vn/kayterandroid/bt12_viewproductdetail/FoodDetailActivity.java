@@ -2,13 +2,86 @@ package vn.kayterandroid.bt12_viewproductdetail;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import vn.kayterandroid.bt12_viewproductdetail.utils.APIService;
+import vn.kayterandroid.bt12_viewproductdetail.utils.RetrofitClient;
 
 public class FoodDetailActivity extends AppCompatActivity {
+
+    String id;
+    Intent intent;
+    APIService apiService;
+    TextView textTitle, textPrice, textDescription;
+    ImageView imagePicture;
+    Button buttonAddToCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
+        mapping();
+        getFoodDetail();
+    }
+
+    void mapping() {
+        textTitle = findViewById(R.id.textTitle);
+        textPrice = findViewById(R.id.textPrice);
+        textDescription = findViewById(R.id.textDescription);
+        imagePicture = findViewById(R.id.imagePicture);
+        buttonAddToCart = findViewById(R.id.buttonAddToCart);
+    }
+
+    void getFoodDetail() {
+        intent = getIntent();
+        id = intent.getExtras().getString("foodId");
+        apiService = RetrofitClient.getAPIService();
+        Call<ResponseBody> call = apiService.getFood(id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String json = response.body().string();
+                        JsonObject userObject = new Gson().fromJson(json, JsonObject.class)
+                                .getAsJsonObject("food");
+                        textTitle.setText(userObject.get("title").getAsString());
+                        textPrice.setText(userObject.get("price").getAsString() + " $");
+                        textDescription.setText(userObject.get("description").getAsString());
+                        if (userObject.get("image").getAsString().length() > 0) {
+                            Glide.with(getApplicationContext())
+                                    .load(userObject.get("image").getAsString())
+                                    .into(imagePicture);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Response Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("Failed to call API", t.getMessage());
+            }
+        });
     }
 }

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -55,20 +56,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                         for (int i = 0; i < foodsArray.length(); i++) {
                             JSONObject foodObject = foodsArray.getJSONObject(i);
                             listFoods.add(new Food(
+                                    foodObject.getString("_id"),
                                     foodObject.getString("image"),
                                     foodObject.getString("title"),
-                                    foodObject.getString("price")
-                            ));
+                                    foodObject.getString("price"),
+                                    foodObject.getString("description")
+                                    ));
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
                     }
-                    foodsAdapter = new MyAdapter(MainActivity.this, listFoods,MainActivity.this );
+                    foodsAdapter = new MyAdapter(MainActivity.this, listFoods, MainActivity.this);
                     recyclerViewFoods.setHasFixedSize(true);
                     recyclerViewFoods.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
                     recyclerViewFoods.setAdapter(foodsAdapter);
                     foodsAdapter.notifyDataSetChanged();
-                    Log.d("Test", "" + listFoods.size());
                 } else {
                     Toast.makeText(getApplicationContext(), "Response Failed", Toast.LENGTH_SHORT).show();
                 }
@@ -83,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
 
     @Override
     public void onItemClick(Food food) {
-        Toast.makeText(this, "Item clicked: " + food.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, FoodDetailActivity.class);
+        intent.putExtra("foodId", food.getId());
+        startActivity(intent);
     }
 }
