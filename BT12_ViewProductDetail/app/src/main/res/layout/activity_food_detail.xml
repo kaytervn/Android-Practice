@@ -58,23 +58,13 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="1"
-        android:layout_marginTop="330dp"
-        android:textSize="25dp"
-        android:textStyle="bold" />
-
-    <TextView
         android:id="@+id/textDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="20dp"
         android:text="text"
-        android:layout_marginTop="380dp"
+        android:layout_marginTop="350dp"
         android:textSize="15dp" />
 
     <Button

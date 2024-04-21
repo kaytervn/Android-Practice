@@ -21,6 +21,9 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import vn.kayterandroid.bt12_viewproductdetail.dao.CartItemDatabase;
+import vn.kayterandroid.bt12_viewproductdetail.model.CartItem;
+import vn.kayterandroid.bt12_viewproductdetail.recyclerview.CartAdapter;
 import vn.kayterandroid.bt12_viewproductdetail.utils.APIService;
 import vn.kayterandroid.bt12_viewproductdetail.utils.RetrofitClient;
 
@@ -32,6 +35,9 @@ public class FoodDetailActivity extends AppCompatActivity {
     TextView textTitle, textPrice, textDescription;
     ImageView imagePicture;
     Button buttonAddToCart;
+    CartAdapter cartAdapter;
+    String imageURL;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,19 @@ public class FoodDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_food_detail);
         mapping();
         getFoodDetail();
+        buttonAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CartItemDatabase.getInstance(FoodDetailActivity.this).cartItemDAO().addCartItem(new CartItem(
+                        imageURL,
+                        textTitle.getText().toString(),
+                        Integer.parseInt(textPrice.getText().toString()),
+                        1
+                ));
+                Intent intent = new Intent(FoodDetailActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     void mapping() {
@@ -63,8 +82,9 @@ public class FoodDetailActivity extends AppCompatActivity {
                         JsonObject userObject = new Gson().fromJson(json, JsonObject.class)
                                 .getAsJsonObject("food");
                         textTitle.setText(userObject.get("title").getAsString());
-                        textPrice.setText(userObject.get("price").getAsString() + " $");
+                        textPrice.setText(userObject.get("price").getAsString());
                         textDescription.setText(userObject.get("description").getAsString());
+                        imageURL = userObject.get("image").getAsString();
                         if (userObject.get("image").getAsString().length() > 0) {
                             Glide.with(getApplicationContext())
                                     .load(userObject.get("image").getAsString())

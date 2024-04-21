@@ -17,6 +17,9 @@ public class Food {
     @SerializedName("description")
     String description;
 
+    public Food() {
+    }
+
     public Food(String id, String image, String title, String price, String description) {
         this.id = id;
         this.image = image;

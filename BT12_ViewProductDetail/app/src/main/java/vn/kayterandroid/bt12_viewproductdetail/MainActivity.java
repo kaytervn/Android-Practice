@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,12 +36,21 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
     List<Food> listFoods = new ArrayList<>();
     MyAdapter foodsAdapter;
     RecyclerView recyclerViewFoods;
+    FloatingActionButton buttonCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerViewFoods = findViewById(R.id.recyclerViewFoods);
+        buttonCart = findViewById(R.id.buttonCart);
+        buttonCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
         getFoods();
     }
 
@@ -61,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewClick
                                     foodObject.getString("title"),
                                     foodObject.getString("price"),
                                     foodObject.getString("description")
-                                    ));
+                            ));
                         }
                     } catch (JSONException | IOException e) {
                         e.printStackTrace();
