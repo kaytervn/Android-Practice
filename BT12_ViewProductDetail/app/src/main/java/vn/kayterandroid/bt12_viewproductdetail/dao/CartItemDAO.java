@@ -15,6 +15,9 @@ public interface CartItemDAO {
     @Query("Select * from cartItems")
     List<CartItem> getAll();
 
+    @Query("Select * from cartItems WHERE image = :image AND title = :title AND price = :price")
+    CartItem getCartItem(String image, String title, int price);
+
     @Insert
     void addCartItem(CartItem cartItem);
 
@@ -23,4 +26,7 @@ public interface CartItemDAO {
 
     @Delete
     void deleteCartItem(CartItem cartItem);
+
+    @Query("SELECT COUNT(*) FROM cartItems WHERE image = :image AND title = :title AND price = :price")
+    int checkCartItemExistence(String image, String title, int price);
 }

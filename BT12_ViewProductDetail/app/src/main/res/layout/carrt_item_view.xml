@@ -43,12 +43,60 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imagePicture"
-        android:layout_marginTop="-40dp"
+        android:layout_marginTop="-100dp"
         android:layout_marginStart="280dp"
         android:padding="3dp"
         android:text="Name"
         android:textColor="#009688"
         android:textSize="20dp"
         android:textStyle="bold" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonDecrease"
+        android:layout_marginStart="120dp"
+        app:fabCustomSize="45dp"
+        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:backgroundTint="#FF9800"
+        android:src="@drawable/minus" />
+
+    <TextView
+        android:id="@+id/textQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imagePicture"
+        android:layout_marginTop="-43dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@id/buttonDecrease"
+        android:padding="3dp"
+        android:text="100"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonIncrease"
+        android:layout_marginStart="5dp"
+        app:fabCustomSize="45dp"
+        android:layout_marginTop="60dp"
+        android:layout_toEndOf="@id/textQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:backgroundTint="#FF9800"
+        android:src="@drawable/baseline_add_24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/buttonDelete"
+        android:layout_marginStart="300dp"
+        app:fabCustomSize="45dp"
+        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:backgroundTint="#FF1100"
+        android:src="@drawable/baseline_delete_forever_24" />
 
 </RelativeLayout>

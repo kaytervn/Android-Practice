@@ -48,12 +48,26 @@ public class FoodDetailActivity extends AppCompatActivity {
         buttonAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartItemDatabase.getInstance(FoodDetailActivity.this).cartItemDAO().addCartItem(new CartItem(
-                        imageURL,
-                        textTitle.getText().toString(),
-                        Integer.parseInt(textPrice.getText().toString()),
-                        1
-                ));
+                if (CartItemDatabase.getInstance(FoodDetailActivity.this).cartItemDAO()
+                        .checkCartItemExistence(
+                                imageURL,
+                                textTitle.getText().toString(),
+                                Integer.parseInt(textPrice.getText().toString())) > 0) {
+                    CartItem item = CartItemDatabase.getInstance(FoodDetailActivity.this).cartItemDAO().getCartItem(
+                            imageURL,
+                            textTitle.getText().toString(),
+                            Integer.parseInt(textPrice.getText().toString())
+                    );
+                    item.setQuantity(item.getQuantity() + 1);
+                    CartItemDatabase.getInstance(FoodDetailActivity.this).cartItemDAO().updateCartItem(item);
+                } else {
+                    CartItemDatabase.getInstance(FoodDetailActivity.this).cartItemDAO().addCartItem(new CartItem(
+                            imageURL,
+                            textTitle.getText().toString(),
+                            Integer.parseInt(textPrice.getText().toString()),
+                            1
+                    ));
+                }
                 Intent intent = new Intent(FoodDetailActivity.this, CartActivity.class);
                 startActivity(intent);
             }
