@@ -3,6 +3,8 @@ package vn.kayterandroid.foodappdemo.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Food {
+    @SerializedName("id")
+    String id;
     @SerializedName("image")
     String image;
 
@@ -10,12 +12,20 @@ public class Food {
     String title;
 
     @SerializedName("price")
-    String price;
+    float price;
 
-    public Food(String image, String title, String price) {
+    @SerializedName("description")
+    String description;
+
+    public Food() {
+    }
+
+    public Food(String id, String image, String title, float price, String description) {
+        this.id = id;
         this.image = image;
         this.title = title;
         this.price = price;
+        this.description = description;
     }
 
     public String getImage() {
@@ -34,11 +44,27 @@ public class Food {
         this.title = title;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

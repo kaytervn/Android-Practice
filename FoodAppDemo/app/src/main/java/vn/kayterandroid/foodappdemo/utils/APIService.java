@@ -31,4 +31,7 @@ public interface APIService {
 
     @GET("foods/")
     Call<ResponseBody> getFoods();
+
+    @GET("foods/{id}")
+    Call<ResponseBody> getFood(@Path("id") String foodId);
 }

@@ -58,41 +58,46 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                apiService = RetrofitClient.getAPIService();
-                User loginUser = new User(inputEmail.getText().toString(), inputPassword.getText().toString());
-                Call<ResponseBody> call = apiService.login(loginUser);
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                String json = response.body().string();
-                                JsonObject userObject = new Gson().fromJson(json, JsonObject.class)
-                                        .getAsJsonObject("user");
-                                SessionManager.getInstance(getApplicationContext()).saveLoginUser(
-                                        userObject.get("_id").getAsString()
-                                );
-                                Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                                startActivity(intent);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            String errorMessage = "";
-                            try {
-                                JsonObject errorJson = new Gson().fromJson(response.errorBody().string(), JsonObject.class);
-                                errorMessage = errorJson.get("error").getAsString();                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                            Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                loginUser();
+            }
+        });
+    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.d("Failed to call API", t.getMessage());
+    void loginUser() {
+        apiService = RetrofitClient.getAPIService();
+        User loginUser = new User(inputEmail.getText().toString(), inputPassword.getText().toString());
+        Call<ResponseBody> call = apiService.login(loginUser);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        String json = response.body().string();
+                        JsonObject userObject = new Gson().fromJson(json, JsonObject.class)
+                                .getAsJsonObject("user");
+                        SessionManager.getInstance(getApplicationContext()).saveLoginUser(
+                                userObject.get("_id").getAsString()
+                        );
+                        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        startActivity(intent);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                });
+                } else {
+                    String errorMessage = "";
+                    try {
+                        JsonObject errorJson = new Gson().fromJson(response.errorBody().string(), JsonObject.class);
+                        errorMessage = errorJson.get("error").getAsString();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("Failed to call API", t.getMessage());
             }
         });
     }
