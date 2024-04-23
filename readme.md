@@ -50,7 +50,9 @@ android {
 
 - Delete file `icons_metadata.txt`.
 
-<h2>manifest.xml permissions</h2>
+<h2>Apply Permissions</h2>
+
+`AndroidManifest.xml`
 
 ```xml
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
