@@ -14,9 +14,6 @@ import vn.kayterandroid.bt_tuan11_fragmenttablayoutviewpager.databinding.Fragmen
 public class NewOrderFragment extends Fragment {
     FragmentNeworderBinding binding;
 
-    public NewOrderFragment() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
