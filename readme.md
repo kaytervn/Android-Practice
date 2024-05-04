@@ -91,3 +91,5 @@ android {
 - Fragment, Tablayout, ViewPager2
 - Upload File/Image
 - Indicator and Search in RecyclerView, Slide Images
+- Webview Client
+- Firebase realtime database
